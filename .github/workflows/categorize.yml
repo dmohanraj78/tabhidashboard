@@ -4,6 +4,11 @@ on:
   repository_dispatch:
     types: [trigger-categorizer]
   workflow_dispatch:
+  schedule:
+    # Native fallback so categorization doesn't depend solely on the external
+    # dispatcher. Runs 9:15 AM UTC daily, ~45 min after the scraper's own
+    # 08:30 UTC cron, so there's fresh, already-pushed data to categorize.
+    - cron: '15 9 * * *'
 
 jobs:
   categorize:
@@ -38,5 +43,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add News_Dashboard/data/ News_Intelligence/output/
           git diff-index --quiet HEAD || git commit -m "Auto-categorize news databases"
-          git pull --rebase -X ours
-          git push
+          for i in 1 2 3 4 5; do
+            # -X theirs keeps THIS job's categorization work on conflict (rebase inverts
+            # ours/theirs vs merge: "ours" here means the remote, which would silently
+            # discard this run's LLM categorization if the scraper pushes at the same time).
+            git pull --rebase -X theirs && git push && break
+            echo "Push attempt $i failed (likely a concurrent push from another workflow), retrying..."
+            sleep $((RANDOM % 10 + 5))
+          done

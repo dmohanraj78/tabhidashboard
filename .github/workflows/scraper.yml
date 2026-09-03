@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,5 +40,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add News_Dashboard/data/ News_Intelligence/output/
           git diff-index --quiet HEAD || git commit -m "Auto-update competitor news databases"
-          git pull --rebase -X ours
-          git push
+          for i in 1 2 3 4 5; do
+            # -X theirs keeps THIS job's freshly scraped data on conflict (rebase inverts
+            # ours/theirs vs merge: "ours" here means the remote, which would silently
+            # discard this run's new articles if two workflows push at the same time).
+            git pull --rebase -X theirs && git push && break
+            echo "Push attempt $i failed (likely a concurrent push from another workflow), retrying..."
+            sleep $((RANDOM % 10 + 5))
+          done

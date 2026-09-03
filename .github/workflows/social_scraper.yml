@@ -4,6 +4,10 @@ on:
   repository_dispatch:
     types: [trigger-social-scraper]
   workflow_dispatch:
+  schedule:
+    # Native fallback so the social scraper doesn't depend solely on the
+    # external dispatcher. Runs 9:30 AM UTC daily, after the news categorizer.
+    - cron: '30 9 * * *'
 
 jobs:
   run-social-scraper:
@@ -40,5 +44,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add News_Dashboard/data/social_media_posts.xlsx
           git diff-index --quiet HEAD || git commit -m "Auto-update competitor social media database"
-          git pull --rebase -X ours
-          git push
+          for i in 1 2 3 4 5; do
+            # -X theirs keeps THIS job's freshly scraped posts on conflict (rebase inverts
+            # ours/theirs vs merge: "ours" here means the remote, which would silently
+            # discard this run's new posts if another workflow pushes at the same time).
+            git pull --rebase -X theirs && git push && break
+            echo "Push attempt $i failed (likely a concurrent push from another workflow), retrying..."
+            sleep $((RANDOM % 10 + 5))
+          done
