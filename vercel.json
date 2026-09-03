@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/", "destination": "/News_Dashboard/", "permanent": true }
+  ]
+}

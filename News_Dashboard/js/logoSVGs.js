@@ -1,8 +1,8 @@
 export const logoSVGs = {
   tabhi: `<svg viewBox="0 0 140 50" style="height:100%; width:auto; overflow:visible;"><circle cx="24" cy="24" r="16" fill="#FF501A" /><text x="18" y="34" font-family="'Kaushan Script', 'Caveat', 'Brush Script MT', cursive" font-size="34" font-weight="700" fill="#FFFFFF" letter-spacing="-0.02em">Tabhi</text></svg>`,
   tabhidark: `<svg viewBox="0 0 140 50" style="height:100%; width:auto; overflow:visible;"><circle cx="24" cy="24" r="16" fill="#FF501A" /><text x="18" y="34" font-family="'Kaushan Script', 'Caveat', 'Brush Script MT', cursive" font-size="34" font-weight="700" fill="#111111" letter-spacing="-0.02em">Tabhi</text></svg>`,
-  mondee: `<img src="images/mondee.svg" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" />`,
-  miraee: `<svg viewBox="0 0 32 32" style="width:100%;height:100%;"><rect width="32" height="32" rx="6" fill="#4B0C22" /><path d="M8 22V10c4-3 12-3 16 0v12c-4 3-12 3-16 0z" fill="none" stroke="#C85000" stroke-width="2.5" /><path d="M11 14h10v4H11z" fill="#C85000" /></svg>`,
+  mondee: `<img src="images/mondee.png" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" />`,
+  miraee: `<img src="images/miraee.svg" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" />`,
   abhee: `<img src="images/abhee.svg" style="max-width:100%; max-height:100%; object-fit:contain; display:block;" />`,
   sabre: `<svg viewBox="0 0 24 24" style="width:100%;height:100%;"><rect width="24" height="24" rx="4" fill="#D9381E" /><path d="M6 17c1.5-2.5 4-5 6-5s4.5 2.5 6 5M12 7c-2 0-3 1.5-3 3.5s1 3.5 3 3.5 3-1.5 3-3.5S14 7 12 7z" fill="none" stroke="#FFF" stroke-width="2" /></svg>`,
   amadeus: `<svg viewBox="0 0 24 24" style="width:100%;height:100%;"><rect width="24" height="24" rx="4" fill="#005F9E" /><circle cx="12" cy="12" r="7" fill="none" stroke="#FFF" stroke-width="1.8" /><ellipse cx="12" cy="12" rx="2.5" ry="7" fill="none" stroke="#FFF" stroke-width="1.2" /><line x1="5" y1="12" x2="19" y2="12" stroke="#FFF" stroke-width="1.2" /></svg>`,
